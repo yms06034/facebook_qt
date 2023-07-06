@@ -9,7 +9,7 @@ import pandas as pd
 
 import pyperclip
 import time
-import datetime
+import datetime, os, sys
 
 # from facebook import append_log
 
@@ -77,27 +77,26 @@ def print_csv(f_name, name, contact, city):
         df.to_csv(f"{f_name}.csv", encoding='UTF-8')
 
 def open_browser():
-    #open browser with secret mode
     options = webdriver.ChromeOptions()
-    options.add_argument("--proxy-server=socks5://127.0.0.1:9150")
-    options.add_argument('window-size=1920x1080')
-    options.add_argument('disable-gpu')
-    options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.add_argument('--no-sandbox')
     options.add_argument('no-sandox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--start-maximized')
+    options.add_argument("--window-size=1080,800")
     options.add_argument('incognito')
     options.add_argument("executable_path=./chromedriver.exe")
-
-    service = Service(ChromeDriverManager().install())
-    browser = webdriver.Chrome(options=options)
-
-
-    #open facebook
-    browser.get("https://www.facebook.com/")
-
-    time.sleep(2)
+    # options.add_argument('headless')
+    # Header Setting
+    # service = Service(ChromeDriverManager().install())
+    # service.creationflags = CREATE_NO_WINDOW
+    # browser = webdriver.Chrome(options=options)
+    if  getattr(sys, 'frozen', False):
+        chromedriver_path = os.path.join(sys._MEIPASS, "chromedriver.exe")
+        browser = webdriver.Chrome(chromedriver_path)
+    else:
+        browser = webdriver.Chrome()
+    browser.get("https://nid.naver.com/nidlogin.login")
+    time.sleep(1.5)
+    
     return browser
 
 def login(browser, id, pwd):
