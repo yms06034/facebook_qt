@@ -9,7 +9,8 @@ import pandas as pd
 
 import pyperclip
 import time
-import datetime, os, sys
+import datetime
+import os, sys
 
 # from facebook import append_log
 
@@ -91,11 +92,12 @@ def open_browser():
     # browser = webdriver.Chrome(options=options)
     if  getattr(sys, 'frozen', False):
         chromedriver_path = os.path.join(sys._MEIPASS, "chromedriver.exe")
-        browser = webdriver.Chrome(chromedriver_path)
+        browser = webdriver.Chrome(chromedriver_path, options=options)
     else:
-        browser = webdriver.Chrome()
-    browser.get("https://nid.naver.com/nidlogin.login")
-    time.sleep(1.5)
+        browser = webdriver.Chrome(options=options)
+    #open facebook
+    browser.get("https://www.facebook.com/")
+    time.sleep(2)
     
     return browser
 
