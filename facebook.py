@@ -43,8 +43,8 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Facebook Crawling")
         
-        main_ui.input_id.setText("itthere2@naver.com")
-        main_ui.input_pwd.setText("itthere1!")
+        # main_ui.input_id.setText("itthere2@naver.com")
+        # main_ui.input_pwd.setText("itthere1!")
         
         # main_ui.btn_login.clicked.connect(self.btn_loginClicked)
         main_ui.btn_start.clicked.connect(self.btn_startClicked)

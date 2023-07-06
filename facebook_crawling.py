@@ -1,5 +1,5 @@
 from webdriver_manager.chrome import ChromeDriverManager
-
+from subprocess import CREATE_NO_WINDOW
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
@@ -79,22 +79,25 @@ def print_csv(f_name, name, contact, city):
 
 def open_browser():
     options = webdriver.ChromeOptions()
+    options.add_argument("--proxy-server=socks5://127.0.0.1:9150")
+    options.add_argument('window-size=1920x1080')
+    options.add_argument('disable-gpu')
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.add_argument('--no-sandbox')
     options.add_argument('no-sandox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument("--window-size=1080,800")
+    options.add_argument('--start-maximized')
     options.add_argument('incognito')
-    options.add_argument("executable_path=./chromedriver.exe")
+
     # options.add_argument('headless')
     # Header Setting
     # service = Service(ChromeDriverManager().install())
     # service.creationflags = CREATE_NO_WINDOW
     # browser = webdriver.Chrome(options=options)
-    if  getattr(sys, 'frozen', False):
-        chromedriver_path = os.path.join(sys._MEIPASS, "chromedriver.exe")
-        browser = webdriver.Chrome(chromedriver_path, options=options)
-    else:
-        browser = webdriver.Chrome(options=options)
+    chrome_service = Service('chromedriver')
+    chrome_service.creationflags = CREATE_NO_WINDOW
+    chrome_service = Service(executable_path="chromedriver.exe")
+    browser = webdriver.Chrome(service=chrome_service, options=options)
     #open facebook
     browser.get("https://www.facebook.com/")
     time.sleep(2)
