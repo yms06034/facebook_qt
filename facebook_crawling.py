@@ -88,9 +88,11 @@ def open_browser():
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--start-maximized')
     options.add_argument('incognito')
+    options.add_argument("executable_path=./chromedriver.exe")
 
     service = Service(ChromeDriverManager().install())
-    browser = webdriver.Chrome(service=service, options=options)
+    browser = webdriver.Chrome(options=options)
+
 
     #open facebook
     browser.get("https://www.facebook.com/")

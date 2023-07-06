@@ -14,11 +14,11 @@ from ui import Ui_MainWindow
 #         await asyncio.sleep(0.1)  
 #         progress_callback(i)
 
-class CrawlerThread(QThread):
-    finished = pyqtSignal(str)
+# class CrawlerThread(QThread):
+#     finished = pyqtSignal(str)
 
-    def __init__(self):
-        super().__init__()
+#     def __init__(self):
+#         super().__init__()
         
 
 def resource_path(relative_path):
@@ -52,9 +52,9 @@ class MainWindow(QMainWindow):
         
         
     def btn_startClicked(self):
-        self.crawler_thread = CrawlerThread()
+        # self.crawler_thread = CrawlerThread()
         # self.crawler_thread.finished.connect(self.handle_crawling_finished)
-        self.crawler_thread.start()
+        # self.crawler_thread.start()
         
         id = main_ui.input_id.text()
         pwd = main_ui.input_pwd.text()
@@ -85,11 +85,8 @@ class MainWindow(QMainWindow):
         else:
             self.append_log("모든 정보를 값을 입력하세요")
 
-
-    
     def append_log(self, msg = ""):
         main_ui.tb_log.append(self.timestamp()+ ": " +msg)
-
     
     def timestamp(self):
         return fc.datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
